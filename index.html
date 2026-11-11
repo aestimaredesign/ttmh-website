@@ -4,15 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Talk To My Hand | TTMH</title>
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Talk To My Hand | TTMH">
+    <meta property="og:description" content="Stop. Wait a minute. Come closer, I have something to say. A character-driven PFP collection and ecosystem.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon Placeholder -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✋</text></svg>">
+
     <style>
         /* CSS Reset & Variables */
         :root {
-            --bg-color: #0a0a0c; /* Slightly darker to make the blues pop */
+            --bg-color: #0a0a0c;
             --text-color: #f0f0f0;
-            --accent-cyan: #00B4D8; /* Your requested light blue */
-            --accent-deep-blue: #023EBA; /* Your requested deep blue */
+            --accent-cyan: #00B4D8;
+            --accent-deep-blue: #023EBA;
             --gray-text: #a0a0a5;
             --box-bg: #151518;
+            
+            /* Status Colors */
+            --status-done: #00B4D8;
+            --status-ongoing: #4ade80;
+            --status-planned: #fbbf24;
+            --status-explore: #a78bfa;
         }
 
         * {
@@ -38,7 +53,7 @@
             position: fixed;
             width: 100%;
             top: 0;
-            background: rgba(10, 10, 12, 0.9);
+            background: rgba(10, 10, 12, 0.95);
             backdrop-filter: blur(10px);
             z-index: 100;
             border-bottom: 1px solid #222;
@@ -56,6 +71,11 @@
             color: var(--accent-cyan);
         }
 
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
         .nav-links a {
             color: var(--text-color);
             text-decoration: none;
@@ -69,7 +89,16 @@
             color: var(--accent-cyan);
         }
 
-        /* Hero Section (Wide Form) */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -86,7 +115,6 @@
             line-height: 1;
             margin-bottom: 20px;
             text-transform: uppercase;
-            /* Adding a subtle gradient to the main title */
             background: linear-gradient(90deg, #ffffff, var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -99,7 +127,7 @@
             margin-bottom: 40px;
         }
 
-        /* The Wide Form Box */
+        /* Whitelist Box */
         .whitelist-box {
             background: var(--box-bg);
             border: 1px solid #333;
@@ -109,7 +137,6 @@
             max-width: 900px;
             text-align: left;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            /* Top border is now a gradient */
             border-top: 4px solid;
             border-image: linear-gradient(to right, var(--accent-cyan), var(--accent-deep-blue)) 1;
         }
@@ -128,7 +155,7 @@
             font-size: 0.95rem;
         }
 
-        /* Grid for Inputs */
+        /* Form Elements */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -161,16 +188,15 @@
 
         .input-group input:focus {
             border-color: var(--accent-cyan);
-            box-shadow: 0 0 10px rgba(0, 180, 216, 0.2);
         }
 
-        /* Social Task Checklist */
+        /* Task Checklist */
         .social-tasks {
             background: #0a0a0c;
             border: 1px solid #333;
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .social-tasks h3 {
@@ -217,7 +243,6 @@
             border-color: var(--accent-cyan);
         }
 
-        /* Task Input (Inline) */
         .task-input-inline {
             background: #151518;
             border: 1px solid #444;
@@ -235,9 +260,29 @@
             border-color: var(--accent-cyan);
         }
 
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: var(--gray-text);
+        }
+
+        .checkbox-group input {
+            margin-top: 4px;
+            accent-color: var(--accent-cyan);
+            cursor: pointer;
+        }
+
+        .privacy-note {
+            font-size: 0.75rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
         .submit-btn {
             width: 100%;
-            /* Gradient background for the button */
             background: linear-gradient(90deg, var(--accent-deep-blue), var(--accent-cyan));
             color: white;
             border: none;
@@ -254,13 +299,12 @@
         .submit-btn:hover {
             opacity: 0.9;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 180, 216, 0.3);
         }
 
-        /* Info Sections */
+        /* General Sections */
         .section {
             padding: 100px 5%;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -279,7 +323,64 @@
             margin-bottom: 20px;
         }
 
-        /* Roadmap Styles */
+        /* --- MOVING BANNER (MARQUEE) --- */
+        .marquee-section {
+            padding: 60px 0;
+            background: var(--bg-color);
+            overflow: hidden;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        .marquee-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        .marquee-header h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 10px;
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+        }
+
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        .marquee-group {
+            display: flex;
+            gap: 20px;
+            padding-right: 20px; /* Space between loop resets */
+        }
+
+        .marquee-group img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 1px solid #333;
+            transition: border-color 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .marquee-group img:hover {
+            border-color: var(--accent-cyan);
+            transform: scale(1.05);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Roadmap */
         .roadmap-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -293,19 +394,18 @@
             border-radius: 15px;
             padding: 30px;
             position: relative;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .phase-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent-cyan);
-            box-shadow: 0 0 20px rgba(0, 180, 216, 0.1);
         }
 
         .phase-number {
             font-size: 3rem;
             font-weight: 900;
-            color: #1a1a20; /* Darker number to blend in */
+            color: #1a1a20;
             position: absolute;
             top: 10px;
             right: 20px;
@@ -315,7 +415,7 @@
         .phase-card h3 {
             color: var(--accent-cyan);
             font-size: 1.2rem;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             position: relative;
             z-index: 1;
             text-transform: uppercase;
@@ -329,17 +429,90 @@
 
         .phase-card ul li {
             color: var(--gray-text);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 0.95rem;
             display: flex;
             align-items: flex-start;
+            gap: 10px;
         }
 
-        .phase-card ul li::before {
-            content: "✦";
-            color: var(--accent-deep-blue);
-            margin-right: 10px;
-            font-size: 0.8rem;
+        /* Status Badges */
+        .status {
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 10px;
+            white-space: nowrap;
+            margin-top: 3px;
+        }
+        .status.done { background: rgba(0, 180, 216, 0.2); color: var(--status-done); border: 1px solid var(--status-done); }
+        .status.ongoing { background: rgba(74, 222, 128, 0.2); color: var(--status-ongoing); border: 1px solid var(--status-ongoing); }
+        .status.planned { background: rgba(251, 191, 36, 0.2); color: var(--status-planned); border: 1px solid var(--status-planned); }
+        .status.explore { background: rgba(167, 139, 250, 0.2); color: var(--status-explore); border: 1px solid var(--status-explore); }
+
+        /* TTMH Studio Section */
+        .studio-section {
+            background: linear-gradient(180deg, var(--bg-color), #101015);
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        .studio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .studio-feature {
+            background: #1a1a20;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-deep-blue);
+        }
+        
+        .studio-feature p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: var(--text-color);
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            background: var(--box-bg);
+            border: 1px solid #333;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .faq-item summary {
+            padding: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            color: var(--accent-cyan);
+        }
+
+        .faq-item summary::after {
+            content: "+";
+            position: absolute;
+            right: 20px;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-content {
+            padding: 0 20px 20px;
+            color: var(--gray-text);
+            font-size: 0.95rem;
         }
 
         /* Footer */
@@ -351,13 +524,34 @@
             font-size: 0.9rem;
         }
 
+        .footer-links {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
             .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
             .form-grid { grid-template-columns: 1fr; }
             .whitelist-box { padding: 20px; }
             .roadmap-grid { grid-template-columns: 1fr; } 
             .task-item { flex-direction: column; align-items: flex-start; gap: 10px; }
             .task-input-inline { width: 100%; margin-left: 0; }
+            .hero h1 { font-size: 3rem; }
+            .marquee-group img { width: 180px; height: 180px; }
         }
     </style>
 </head>
@@ -366,14 +560,18 @@
     <!-- Navigation -->
     <nav>
         <a href="#" class="logo">TALK TO MY <span>HAND</span></a>
+        <button class="mobile-menu-btn" onclick="alert('Mobile menu to be implemented in next phase.')">☰</button>
         <div class="nav-links">
+            <a href="#artwork">Artwork</a>
             <a href="#about">Origin</a>
             <a href="#roadmap">Roadmap</a>
+            <a href="#studio">Studio</a>
+            <a href="#faq">FAQ</a>
             <a href="#" style="color: var(--accent-cyan);">Mint on OpenSea</a>
         </div>
     </nav>
 
-    <!-- Hero Section with Wide Form -->
+    <!-- Hero Section -->
     <header class="hero">
         <h1>Talk To My Hand</h1>
         <p>Stop. Wait a minute. Come closer, I have something to say.</p>
@@ -381,14 +579,13 @@
         <!-- WHITELIST FORM -->
         <div class="whitelist-box">
             <h2>Early Whitelist Registration</h2>
-            <p class="subtitle">Secure your spot for the December drop. Only 1 Wallet per X Account.</p>
+            <p class="subtitle">Secure your spot for the December drop. Only 1 Wallet per X Account.<br><strong>Note: Tasks are manually verified.</strong></p>
             
             <form action="#" method="POST">
-                <!-- Top Inputs -->
                 <div class="form-grid">
                     <div class="input-group">
                         <label for="x-account">X (Twitter) Username</label>
-                        <input type="text" id="x-account" name="x-account" placeholder="@yourusername" required>
+                        <input type="text" id="x-account" name="x-account" placeholder="@yourusername" pattern="^@?[a-zA-Z0-9_]{1,15}$" title="Please enter a valid X username" required>
                     </div>
                     <div class="input-group">
                         <label for="discord">Discord Username</label>
@@ -398,14 +595,13 @@
 
                 <div class="form-grid" style="grid-template-columns: 1fr; margin-bottom: 20px;">
                     <div class="input-group">
-                        <label for="wallet">ETH Wallet Address</label>
-                        <input type="text" id="wallet" name="wallet" placeholder="0x..." required>
+                        <label for="wallet">ETH Wallet Address (ERC-20)</label>
+                        <input type="text" id="wallet" name="wallet" placeholder="0x..." pattern="^0x[a-fA-F0-9]{40}$" title="Please enter a valid 42-character Ethereum address" required>
                     </div>
                 </div>
 
-                <!-- Task Checklist -->
                 <div class="social-tasks">
-                    <h3>Required Tasks (First 300 Wallets)</h3>
+                    <h3>Required Tasks (First 300 Qualified Wallets)</h3>
                     
                     <div class="task-item">
                         <span class="task-text">1. Follow <strong>@talktomyhandnft</strong></span>
@@ -428,10 +624,54 @@
                     </div>
                 </div>
 
+                <div class="checkbox-group">
+                    <input type="checkbox" id="confirm-tasks" name="confirm-tasks" required>
+                    <label for="confirm-tasks">I confirm that I have completed all required tasks, provided accurate information, and understand that tasks are manually verified to qualify for the first 300 slots.</label>
+                </div>
+
+                <p class="privacy-note">Privacy Notice: Your wallet address and social handles will be used solely for whitelist verification and project distribution. We will never sell your data.</p>
+
                 <button type="submit" class="submit-btn">Submit for Whitelist</button>
             </form>
         </div>
     </header>
+
+    <!-- Moving Artwork Banner (Marquee) -->
+    <section id="artwork" class="marquee-section">
+        <div class="marquee-header">
+            <h2>Artwork Preview</h2>
+            <p>A glimpse into the different moods, expressions, and accessories.</p>
+        </div>
+        
+        <div class="marquee-track">
+            <!-- Group 1 -->
+            <div class="marquee-group">
+                <img src="1.jpg" alt="TTMH Art 1">
+                <img src="2.jpg" alt="TTMH Art 2">
+                <img src="3.jpg" alt="TTMH Art 3">
+                <img src="4.jpg" alt="TTMH Art 4">
+                <img src="5.jpg" alt="TTMH Art 5">
+                <img src="6.jpg" alt="TTMH Art 6">
+                <img src="7.jpg" alt="TTMH Art 7">
+                <img src="8.jpg" alt="TTMH Art 8">
+                <img src="9.jpg" alt="TTMH Art 9">
+                <img src="10.jpg" alt="TTMH Art 10">
+            </div>
+            <!-- Group 2 (Duplicate of Group 1 for seamless looping) -->
+            <div class="marquee-group">
+                <img src="1.jpg" alt="TTMH Art 1">
+                <img src="2.jpg" alt="TTMH Art 2">
+                <img src="3.jpg" alt="TTMH Art 3">
+                <img src="4.jpg" alt="TTMH Art 4">
+                <img src="5.jpg" alt="TTMH Art 5">
+                <img src="6.jpg" alt="TTMH Art 6">
+                <img src="7.jpg" alt="TTMH Art 7">
+                <img src="8.jpg" alt="TTMH Art 8">
+                <img src="9.jpg" alt="TTMH Art 9">
+                <img src="10.jpg" alt="TTMH Art 10">
+            </div>
+        </div>
+    </section>
 
     <!-- Origin Section -->
     <section id="about" class="section">
@@ -451,10 +691,10 @@
                 <div class="phase-number">01</div>
                 <h3>The Gesture</h3>
                 <ul>
-                    <li>Brand reveal & Origin story</li>
-                    <li>Website launch</li>
-                    <li>Social channels & community</li>
-                    <li>Finalizing the 10,000 pieces</li>
+                    <li><span class="status done">Done</span> Brand reveal & Origin story</li>
+                    <li><span class="status done">Done</span> Website launch</li>
+                    <li><span class="status ongoing">Ongoing</span> Social channels & community</li>
+                    <li><span class="status ongoing">Ongoing</span> Finalization of the 10,000-piece collection</li>
                 </ul>
             </div>
 
@@ -463,9 +703,9 @@
                 <div class="phase-number">02</div>
                 <h3>The Drop</h3>
                 <ul>
-                    <li>10,000 pieces mint on OpenSea</li>
-                    <li>Trait reveals & Metadata</li>
-                    <li>Community onboarding</li>
+                    <li><span class="status planned">Planned</span> Official Collection Launch</li>
+                    <li><span class="status planned">Planned</span> Trait and Metadata Reveal</li>
+                    <li><span class="status planned">Planned</span> Community onboarding</li>
                 </ul>
             </div>
 
@@ -474,10 +714,10 @@
                 <div class="phase-number">03</div>
                 <h3>The Studio</h3>
                 <ul>
-                    <li>Public Browser-Based Generator</li>
-                    <li>Create custom PFP layers</li>
-                    <li>One-Click Seadrop Contract Deploy</li>
-                    <li>Launch directly to OpenSea</li>
+                    <li><span class="status explore">Explore</span> TTMH Studio: Public Browser-Based Generator</li>
+                    <li><span class="status explore">Explore</span> Create custom PFP layers</li>
+                    <li><span class="status explore">Explore</span> Simplified Seadrop-Compatible Contract Deployment</li>
+                    <li><span class="status explore">Explore</span> Launch directly to OpenSea</li>
                 </ul>
             </div>
 
@@ -486,18 +726,69 @@
                 <div class="phase-number">04</div>
                 <h3>Ecosystem & Collabs</h3>
                 <ul>
-                    <li>Soft Staking Utility</li>
-                    <li>Cross-project holder perks</li>
-                    <li>Brand collabs, integrations & real-world perks</li>
+                    <li><span class="status planned">Planned</span> Soft Staking Utility</li>
+                    <li><span class="status explore">Explore</span> Cross-project holder perks</li>
+                    <li><span class="status explore">Explore</span> Brand collabs, integrations & real-world perks</li>
                 </ul>
             </div>
         </div>
     </section>
 
+    <!-- TTMH Studio Section -->
+    <section id="studio" class="section studio-section">
+        <h2>TTMH Studio</h2>
+        <p>The collection is the entry point. TTMH Studio is the creative component.</p>
+        <p>We are exploring a public tool for the community. These are planned developments, not existing features.</p>
+        
+        <div class="studio-grid">
+            <div class="studio-feature"><p>✦ PFP layer customization</p></div>
+            <div class="studio-feature"><p>✦ Trait combinations</p></div>
+            <div class="studio-feature"><p>✦ Background customization</p></div>
+            <div class="studio-feature"><p>✦ Artwork generation</p></div>
+            <div class="studio-feature"><p>✦ Metadata generation</p></div>
+            <div class="studio-feature"><p>✦ NFT collection preparation</p></div>
+            <div class="studio-feature"><p>✦ Seadrop-compatible deployment</p></div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section">
+        <h2>Frequently Asked Questions</h2>
+        
+        <details class="faq-item">
+            <summary>What is Talk To My Hand?</summary>
+            <div class="faq-content">Talk To My Hand is a character-driven 10,000-piece PFP collection built around the gesture of a raised hand. It is also an evolving ecosystem that includes creative tools (TTMH Studio) and future utility for holders.</div>
+        </details>
+
+        <details class="faq-item">
+            <summary>When is the mint and what is the supply?</summary>
+            <div class="faq-content">The official collection launch is planned for December. The supply is strictly limited to 10,000 pieces. Exact date and mint price will be announced soon.</div>
+        </details>
+
+        <details class="faq-item">
+            <summary>Which blockchain will TTMH be on?</summary>
+            <div class="faq-content">We are currently planning for an Ethereum-based deployment (ERC-20/ERC-721 compatible), meaning you will need an ETH wallet (like MetaMask) to mint.</div>
+        </details>
+
+        <details class="faq-item">
+            <summary>How will the whitelist work?</summary>
+            <div class="faq-content">The first 300 slots are for qualified registrants who complete the social tasks. After that, we will have a public mint phase. All tasks are manually verified to prevent botting.</div>
+        </details>
+
+        <details class="faq-item">
+            <summary>What is the Soft Staking Utility?</summary>
+            <div class="faq-content">We are exploring a low-maintenance staking mechanism where holders can lock their NFTs or simply hold them in their wallet to receive potential future perks, without complex or heavy tokenomics.</div>
+        </details>
+    </section>
+
     <!-- Footer -->
     <footer>
+        <div class="footer-links">
+            <a href="https://x.com/talktomyhandnft" target="_blank">X (Twitter)</a>
+            <a href="https://discord.gg/cnB9kTaYRQ" target="_blank">Discord</a>
+            <a href="#" target="_blank">OpenSea</a>
+        </div>
         <p>&copy; 2026 Talk To My Hand (TTMH). All rights reserved.</p>
-        <p>Follow us on X (Twitter) for drop updates.</p>
     </footer>
 
 </body>
