@@ -16,7 +16,7 @@
     <meta property="og:url" content="https://ttmh.wtf/">
     <meta property="og:title" content="Talk To My Hand | TTMH">
     <meta property="og:description" content="Stop. Wait a minute. Come closer, I have something to say. A character-driven 10,000-piece PFP collection and evolving ecosystem.">
-    <meta property="og:image" content="https://ttmh.wtf/1.jpg">
+    <meta property="og:image" content="https://ttmh.wtf/og-image.png">
     <meta property="og:image:alt" content="Talk To My Hand (TTMH) collection artwork preview">
 
     <!-- X (Twitter) Card -->
@@ -24,7 +24,7 @@
     <meta name="twitter:site" content="@talktomyhandnft">
     <meta name="twitter:title" content="Talk To My Hand | TTMH">
     <meta name="twitter:description" content="Stop. Wait a minute. Come closer, I have something to say. A character-driven 10,000-piece PFP collection and evolving ecosystem.">
-    <meta name="twitter:image" content="https://ttmh.wtf/1.jpg">
+    <meta name="twitter:image" content="https://ttmh.wtf/og-image.png">
     <meta name="twitter:image:alt" content="Talk To My Hand (TTMH) collection artwork preview">
 
     <!-- Favicon -->
@@ -138,22 +138,18 @@
             padding: 120px 20px 60px;
         }
 
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #ffffff, var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* New Header Image Container */
+        .header-image-container {
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 40px;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--gray-text);
-            max-width: 600px;
-            margin-bottom: 40px;
+        .header-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 15px; /* Optional: smooths the corners */
         }
 
         /* Whitelist Box */
@@ -251,7 +247,6 @@
             padding: 50px 20px;
         }
         .success-message h3 { color: var(--accent-cyan); font-size: 2rem; margin-bottom: 10px; }
-        /* Keep success confirmation paragraphs centered within the full card. */
         .success-message p {
             max-width: 620px;
             width: 100%;
@@ -315,7 +310,6 @@
             border-bottom: 1px solid #222;
         }
         .stats-grid {
-            /* Changed to 3 columns to balance the 3 items */
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 800px; margin: 0 auto;
         }
         .stat-item h4 { color: var(--gray-text); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 5px; }
@@ -387,9 +381,7 @@
             .roadmap-grid { grid-template-columns: 1fr; } 
             .task-item { flex-direction: column; align-items: flex-start; gap: 10px; }
             .task-input-inline { width: 100%; margin-left: 0; }
-            .hero h1 { font-size: 3rem; }
             .marquee-group img { width: 180px; height: 180px; }
-            /* Adjusted to 1 column on mobile for better reading */
             .stats-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -423,8 +415,13 @@
     </div>
 
     <!-- Hero Section -->
-    
+    <header class="hero">
         
+        <!-- WIDE HEADER IMAGE -->
+        <div class="header-image-container">
+            <img src="og-image.png" alt="Talk To My Hand Header">
+        </div>
+
         <!-- WHITELIST FORM CONTAINER -->
         <div class="whitelist-box" id="formContainer">
             <h2>Early Whitelist Registration</h2>
@@ -675,7 +672,7 @@
     <!-- JAVASCRIPT -->
     <script>
         // Keep this URL synchronized with the deployed Google Apps Script Web App.
-        const WHITELIST_API_URL = 'https://script.google.com/macros/s/AKfycby_7wgfbSnTSdcM8Zz5OJrpSs-N3kaiosZqAXRGhH8mvM0D1YwFegm2WEr5wcUePnRoOQ/exec';
+        const WHITELIST_API_URL = 'https://script.google.com/macros/s/AKfycbzZKDDhGwsr34ykiYhMJCbGF_4GfxPgCUp9nYynJRPF4gkOIo5q7yPqcG_TdoT-Bnk1AQ/exec';
 
         // Mobile navigation: accessible toggle, Escape key, and outside-click close.
         const mobileMenu = document.getElementById('mobileNav');
