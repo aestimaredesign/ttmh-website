@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Talk To My Hand | TTMH</title>
     
-    <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="Talk To My Hand | TTMH">
-    <meta property="og:description" content="Stop. Wait a minute. Come closer, I have something to say. A character-driven PFP collection and ecosystem.">
-    <meta property="og:type" content="website">
+    <!-- SEO & Social Media Meta Tags -->
+    <meta name="description" content="Talk To My Hand (TTMH) is a character-driven 10,000-piece PFP collection and evolving ecosystem. Secure your whitelist spot for the December launch.">
+    <link rel="canonical" href="https://ttmh.wtf/">
     
-    <!-- Favicon Placeholder -->
+    <meta property="og:title" content="Talk To My Hand | TTMH">
+    <meta property="og:description" content="Stop. Wait a minute. Come closer, I have something to say.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ttmh.wtf/">
+    <!-- REPLACE WITH YOUR ACTUAL IMAGE URL LATER -->
+    <meta property="og:image" content="https://ttmh.wtf/1.jpg"> 
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Talk To My Hand | TTMH">
+    <meta name="twitter:description" content="A character-driven 10,000-piece PFP collection and evolving ecosystem.">
+    <meta name="twitter:image" content="https://ttmh.wtf/1.jpg">
+    
+    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✋</text></svg>">
 
     <style>
@@ -23,7 +34,6 @@
             --gray-text: #a0a0a5;
             --box-bg: #151518;
             
-            /* Status Colors */
             --status-done: #00B4D8;
             --status-ongoing: #4ade80;
             --status-planned: #fbbf24;
@@ -67,15 +77,9 @@
             text-decoration: none;
         }
 
-        .logo span {
-            color: var(--accent-cyan);
-        }
+        .logo span { color: var(--accent-cyan); }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-        }
-
+        .nav-links { display: flex; align-items: center; }
         .nav-links a {
             color: var(--text-color);
             text-decoration: none;
@@ -84,10 +88,7 @@
             font-size: 14px;
             transition: color 0.3s;
         }
-
-        .nav-links a:hover {
-            color: var(--accent-cyan);
-        }
+        .nav-links a:hover { color: var(--accent-cyan); }
 
         .mobile-menu-btn {
             display: none;
@@ -97,6 +98,28 @@
             font-size: 24px;
             cursor: pointer;
         }
+
+        /* Mobile Nav Overlay */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--box-bg);
+            flex-direction: column;
+            padding: 20px;
+            border-bottom: 1px solid #333;
+            z-index: 99;
+        }
+        .mobile-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 15px 0;
+            border-bottom: 1px solid #222;
+            font-weight: bold;
+        }
+        .mobile-nav a:last-child { border-bottom: none; }
 
         /* Hero Section */
         .hero {
@@ -130,13 +153,14 @@
         /* Whitelist Box */
         .whitelist-box {
             background: var(--box-bg);
-            border: 1px solid #333; /* Simple grey border, no gradient */
+            border: 1px solid #333;
             border-radius: 20px;
             padding: 40px;
             width: 100%;
             max-width: 900px;
             text-align: left;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
         }
 
         .whitelist-box h2 {
@@ -161,18 +185,8 @@
             margin-bottom: 20px;
         }
 
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .input-group label {
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            color: var(--text-color);
-            font-weight: 600;
-        }
-
+        .input-group { display: flex; flex-direction: column; }
+        .input-group label { font-size: 0.9rem; margin-bottom: 8px; font-weight: 600; }
         .input-group input {
             background: #0a0a0c;
             border: 1px solid #333;
@@ -183,10 +197,7 @@
             outline: none;
             transition: border-color 0.3s;
         }
-
-        .input-group input:focus {
-            border-color: var(--accent-cyan);
-        }
+        .input-group input:focus { border-color: var(--accent-cyan); }
 
         /* Task Checklist */
         .social-tasks {
@@ -196,130 +207,41 @@
             padding: 20px;
             margin-bottom: 20px;
         }
-
-        .social-tasks h3 {
-            font-size: 1rem;
-            margin-bottom: 15px;
-            color: var(--accent-cyan);
-            text-transform: uppercase;
-        }
-
-        .task-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #222;
-        }
-
-        .task-item:last-child {
-            border-bottom: none;
-        }
-
-        .task-text {
-            font-size: 0.95rem;
-            color: var(--gray-text);
-        }
-
+        .social-tasks h3 { font-size: 1rem; margin-bottom: 15px; color: var(--accent-cyan); text-transform: uppercase; }
+        .task-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #222; }
+        .task-item:last-child { border-bottom: none; }
+        .task-text { font-size: 0.95rem; color: var(--gray-text); }
         .task-btn {
-            background: transparent;
-            color: var(--text-color);
-            border: 1px solid #444;
-            padding: 8px 15px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            white-space: nowrap;
+            background: transparent; color: var(--text-color); border: 1px solid #444; padding: 8px 15px;
+            border-radius: 50px; font-size: 0.85rem; font-weight: bold; text-decoration: none;
+            transition: all 0.3s; cursor: pointer; white-space: nowrap;
         }
-
-        .task-btn:hover {
-            background: var(--accent-cyan);
-            color: var(--bg-color);
-            border-color: var(--accent-cyan);
-        }
-
+        .task-btn:hover { background: var(--accent-cyan); color: var(--bg-color); border-color: var(--accent-cyan); }
+        
         .task-input-inline {
-            background: #151518;
-            border: 1px solid #444;
-            color: var(--text-color);
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            outline: none;
-            width: 60%;
-            margin-left: 20px;
-            transition: border-color 0.3s;
+            background: #151518; border: 1px solid #444; color: var(--text-color); padding: 10px 15px;
+            border-radius: 8px; font-size: 0.9rem; outline: none; width: 60%; margin-left: 20px;
         }
 
-        .task-input-inline:focus {
-            border-color: var(--accent-cyan);
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-            color: var(--gray-text);
-        }
-
-        .checkbox-group input {
-            margin-top: 4px;
-            accent-color: var(--accent-cyan);
-            cursor: pointer;
-        }
-
-        .privacy-note {
-            font-size: 0.75rem;
-            color: #666;
-            margin-bottom: 20px;
-        }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px; font-size: 0.85rem; color: var(--gray-text); }
+        .checkbox-group input { margin-top: 4px; accent-color: var(--accent-cyan); cursor: pointer; }
+        .privacy-note { font-size: 0.75rem; color: #666; margin-bottom: 20px; }
 
         .submit-btn {
             width: 100%;
             background: linear-gradient(90deg, var(--accent-deep-blue), var(--accent-cyan));
-            color: white;
-            border: none;
-            padding: 18px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: opacity 0.3s, transform 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: white; border: none; padding: 18px; font-size: 1.1rem; font-weight: bold;
+            border-radius: 10px; cursor: pointer; transition: opacity 0.3s; text-transform: uppercase;
         }
+        .submit-btn:hover { opacity: 0.9; }
 
-        .submit-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
+        /* Success Message Overlay (Hidden by default) */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
         }
-
-        /* General Sections */
-        .section {
-            padding: 100px 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-left: 4px solid var(--accent-cyan);
-            padding-left: 15px;
-        }
-
-        .section p {
-            font-size: 1.1rem;
-            color: var(--gray-text);
-            margin-bottom: 20px;
-        }
+        .success-message h3 { color: var(--accent-cyan); font-size: 2rem; margin-bottom: 10px; }
 
         /* --- MOVING BANNER (MARQUEE) --- */
         .marquee-section {
@@ -328,223 +250,101 @@
             overflow: hidden;
             border-top: 1px solid #222;
             border-bottom: 1px solid #222;
+            position: relative;
         }
 
-        .marquee-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 0 20px;
+        /* Fade effects on edges */
+        .marquee-section::before, .marquee-section::after {
+            content: ""; position: absolute; top: 0; width: 15%; height: 100%; z-index: 2; pointer-events: none;
         }
+        .marquee-section::before { left: 0; background: linear-gradient(to right, var(--bg-color), transparent); }
+        .marquee-section::after { right: 0; background: linear-gradient(to left, var(--bg-color), transparent); }
 
-        .marquee-header h2 {
-            border-left: none;
-            padding-left: 0;
-            margin-bottom: 10px;
-        }
-
-        .marquee-header p {
-            font-style: italic;
-            letter-spacing: 1px;
-            color: var(--accent-cyan);
-            font-size: 1.1rem;
-        }
+        .marquee-header { text-align: center; margin-bottom: 40px; padding: 0 20px; position: relative; z-index: 3; }
+        .marquee-header h2 { font-size: 2.5rem; text-transform: uppercase; margin-bottom: 10px; }
+        .marquee-header p { font-style: italic; color: var(--accent-cyan); font-size: 1.1rem; }
 
         .marquee-track {
             display: flex;
             width: max-content;
             animation: scroll 40s linear infinite;
         }
-
-        .marquee-track:hover {
-            animation-play-state: paused;
+        /* Accessibility: Pause animation if user prefers reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-track { animation: none; overflow-x: auto; }
         }
+        .marquee-track:hover { animation-play-state: paused; }
 
-        .marquee-group {
-            display: flex;
-            gap: 20px;
-            padding-right: 20px;
-        }
-
+        .marquee-group { display: flex; gap: 20px; padding-right: 20px; }
         .marquee-group img {
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 15px;
-            border: 1px solid #333;
-            transition: border-color 0.3s, transform 0.3s;
-            cursor: pointer;
+            width: 250px; height: 250px; object-fit: cover; border-radius: 15px;
+            border: 1px solid #333; transition: border-color 0.3s, transform 0.3s; cursor: zoom-in;
         }
-
-        .marquee-group img:hover {
-            border-color: var(--accent-cyan);
-            transform: scale(1.05);
-        }
+        .marquee-group img:hover { border-color: var(--accent-cyan); transform: scale(1.05); }
 
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
 
+        /* Collection Statistics */
+        .stats-section {
+            background: #101015;
+            padding: 60px 5%;
+            text-align: center;
+            border-bottom: 1px solid #222;
+        }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto;
+        }
+        .stat-item h4 { color: var(--gray-text); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 5px; }
+        .stat-item p { font-size: 1.5rem; font-weight: bold; color: var(--accent-cyan); }
+
+        /* General Sections */
+        .section { padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
+        .section h2 { font-size: 2.5rem; margin-bottom: 30px; text-transform: uppercase; border-left: 4px solid var(--accent-cyan); padding-left: 15px; }
+        .section p { font-size: 1.1rem; color: var(--gray-text); margin-bottom: 20px; }
+
         /* Roadmap */
-        .roadmap-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px; 
-            margin-top: 40px;
-        }
-
-        .phase-card {
-            background: var(--box-bg);
-            border: 1px solid #333;
-            border-radius: 15px;
-            padding: 30px;
-            position: relative;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .phase-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-        }
-
-        .phase-number {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #1a1a20;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            z-index: 0;
-        }
-
-        .phase-card h3 {
-            color: var(--accent-cyan);
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-            text-transform: uppercase;
-        }
-
-        .phase-card ul {
-            list-style-type: none;
-            position: relative;
-            z-index: 1;
-        }
-
-        .phase-card ul li {
-            color: var(--gray-text);
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        /* Status Badges */
-        .status {
-            font-size: 0.65rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            padding: 2px 8px;
-            border-radius: 10px;
-            white-space: nowrap;
-            margin-top: 3px;
-        }
+        .roadmap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+        .phase-card { background: var(--box-bg); border: 1px solid #333; border-radius: 15px; padding: 30px; position: relative; }
+        .phase-number { font-size: 3rem; font-weight: 900; color: #1a1a20; position: absolute; top: 10px; right: 20px; z-index: 0; }
+        .phase-card h3 { color: var(--accent-cyan); font-size: 1.2rem; margin-bottom: 20px; position: relative; z-index: 1; text-transform: uppercase; }
+        .phase-card ul { list-style-type: none; position: relative; z-index: 1; }
+        .phase-card ul li { color: var(--gray-text); margin-bottom: 12px; font-size: 0.95rem; display: flex; align-items: flex-start; gap: 10px; }
+        
+        .status { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; white-space: nowrap; margin-top: 3px; }
         .status.done { background: rgba(0, 180, 216, 0.2); color: var(--status-done); border: 1px solid var(--status-done); }
         .status.ongoing { background: rgba(74, 222, 128, 0.2); color: var(--status-ongoing); border: 1px solid var(--status-ongoing); }
         .status.planned { background: rgba(251, 191, 36, 0.2); color: var(--status-planned); border: 1px solid var(--status-planned); }
         .status.explore { background: rgba(167, 139, 250, 0.2); color: var(--status-explore); border: 1px solid var(--status-explore); }
 
         /* TTMH Studio Section */
-        .studio-section {
-            background: linear-gradient(180deg, var(--bg-color), #101015);
-            border-top: 1px solid #222;
-            border-bottom: 1px solid #222;
-        }
-
-        .studio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .studio-feature {
-            background: #1a1a20;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 3px solid var(--accent-deep-blue);
-        }
-        
-        .studio-feature p {
-            font-size: 0.9rem;
-            margin-bottom: 0;
-            color: var(--text-color);
-        }
+        .studio-section { background: linear-gradient(180deg, var(--bg-color), #101015); border-top: 1px solid #222; border-bottom: 1px solid #222; }
+        .studio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 30px; }
+        .studio-feature { background: #1a1a20; padding: 20px; border-radius: 10px; border-left: 3px solid var(--accent-deep-blue); }
+        .studio-feature p { font-size: 0.9rem; margin-bottom: 0; color: var(--text-color); }
 
         /* FAQ Section */
-        .faq-item {
-            background: var(--box-bg);
-            border: 1px solid #333;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            overflow: hidden;
-        }
-
-        .faq-item summary {
-            padding: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            list-style: none;
-            position: relative;
-            color: var(--accent-cyan);
-        }
-
-        .faq-item summary::after {
-            content: "+";
-            position: absolute;
-            right: 20px;
-            color: var(--text-color);
-            font-size: 1.2rem;
-            transition: transform 0.3s;
-        }
-
-        .faq-item[open] summary::after {
-            transform: rotate(45deg);
-        }
-
-        .faq-content {
-            padding: 0 20px 20px;
-            color: var(--gray-text);
-            font-size: 0.95rem;
-        }
+        .faq-item { background: var(--box-bg); border: 1px solid #333; border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
+        .faq-item summary { padding: 20px; font-weight: bold; cursor: pointer; list-style: none; position: relative; color: var(--accent-cyan); }
+        .faq-item summary::after { content: "+"; position: absolute; right: 20px; color: var(--text-color); font-size: 1.2rem; transition: transform 0.3s; }
+        .faq-item[open] summary::after { transform: rotate(45deg); }
+        .faq-content { padding: 0 20px 20px; color: var(--gray-text); font-size: 0.95rem; }
 
         /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px;
-            border-top: 1px solid #222;
-            color: var(--gray-text);
-            font-size: 0.9rem;
-        }
+        footer { text-align: center; padding: 40px; border-top: 1px solid #222; color: var(--gray-text); font-size: 0.9rem; }
+        .footer-links { margin-bottom: 15px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .footer-links a, .footer-links span { color: var(--accent-cyan); text-decoration: none; font-weight: bold; }
+        .footer-links span { color: var(--gray-text); cursor: not-allowed; }
+        .footer-links a:hover { text-decoration: underline; }
 
-        .footer-links {
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+        /* Lightbox Modal */
+        .lightbox {
+            display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out;
         }
-
-        .footer-links a {
-            color: var(--accent-cyan);
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 10px; border: 2px solid var(--accent-cyan); }
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
@@ -557,6 +357,7 @@
             .task-input-inline { width: 100%; margin-left: 0; }
             .hero h1 { font-size: 3rem; }
             .marquee-group img { width: 180px; height: 180px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -565,33 +366,45 @@
     <!-- Navigation -->
     <nav>
         <a href="#" class="logo">TALK TO MY <span>HAND</span></a>
-        <button class="mobile-menu-btn" onclick="alert('Mobile menu to be implemented in next phase.')">☰</button>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
         <div class="nav-links">
             <a href="#artwork">Artwork</a>
+            <a href="#stats">Stats</a>
             <a href="#about">Origin</a>
             <a href="#roadmap">Roadmap</a>
             <a href="#studio">Studio</a>
             <a href="#faq">FAQ</a>
-            <a href="#" style="color: var(--accent-cyan);">Mint on OpenSea</a>
+            <span style="color: var(--gray-text); cursor: not-allowed; margin-left: 20px;">Mint (Soon)</span>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#artwork" onclick="toggleMenu()">Artwork</a>
+        <a href="#stats" onclick="toggleMenu()">Stats</a>
+        <a href="#about" onclick="toggleMenu()">Origin</a>
+        <a href="#roadmap" onclick="toggleMenu()">Roadmap</a>
+        <a href="#studio" onclick="toggleMenu()">Studio</a>
+        <a href="#faq" onclick="toggleMenu()">FAQ</a>
+        <a style="color: var(--gray-text);">Mint (Soon)</a>
+    </div>
 
     <!-- Hero Section -->
     <header class="hero">
         <h1>Talk To My Hand</h1>
         <p>Stop. Wait a minute. Come closer, I have something to say.</p>
         
-        <!-- WHITELIST FORM -->
-        <div class="whitelist-box">
+        <!-- WHITELIST FORM CONTAINER -->
+        <div class="whitelist-box" id="formContainer">
             <h2>Early Whitelist Registration</h2>
             <p class="subtitle">Secure your spot for the December drop. Only 1 Wallet per X Account.<br><strong>Note: Tasks are manually verified.</strong></p>
             
-            <!-- GOOGLE SHEET CONNECTION -->
-            <form action="https://script.google.com/macros/s/AKfycbzZKDDhGwsr34ykiYhMJCbGF_4GfxPgCUp9nYynJRPF4gkOIo5q7yPqcG_TdoT-Bnk1AQ/exec" method="POST">
+            <!-- Note the ID on the form for Javascript -->
+            <form id="whitelistForm">
                 <div class="form-grid">
                     <div class="input-group">
                         <label for="x-account">X (Twitter) Username</label>
-                        <input type="text" id="x-account" name="x_account" placeholder="@yourusername" pattern="^@?[a-zA-Z0-9_]{1,15}$" title="Please enter a valid X username" required>
+                        <input type="text" id="x-account" name="x_account" placeholder="@yourusername" pattern="^@?[a-zA-Z0-9_]{1,15}$" required>
                     </div>
                     <div class="input-group">
                         <label for="discord">Discord Username</label>
@@ -601,8 +414,8 @@
 
                 <div class="form-grid" style="grid-template-columns: 1fr; margin-bottom: 20px;">
                     <div class="input-group">
-                        <label for="wallet">ETH Wallet Address (ERC-20)</label>
-                        <input type="text" id="wallet" name="wallet" placeholder="0x..." pattern="^0x[a-fA-F0-9]{40}$" title="Please enter a valid 42-character Ethereum address" required>
+                        <label for="wallet">Wallet Address (Network TBA)</label>
+                        <input type="text" id="wallet" name="wallet" placeholder="0x..." pattern="^0x[a-fA-F0-9]{40}$" title="Please enter a valid 42-character Ethereum-style address" required>
                     </div>
                 </div>
 
@@ -631,14 +444,21 @@
                 </div>
 
                 <div class="checkbox-group">
-                    <input type="checkbox" id="confirm-tasks" name="confirm-tasks" required>
+                    <input type="checkbox" id="confirm-tasks" required>
                     <label for="confirm-tasks">I confirm that I have completed all required tasks, provided accurate information, and understand that tasks are manually verified to qualify for the first 300 slots.</label>
                 </div>
 
                 <p class="privacy-note">Privacy Notice: Your wallet address and social handles will be used solely for whitelist verification and project distribution. We will never sell your data.</p>
 
-                <button type="submit" class="submit-btn">Submit for Whitelist</button>
+                <button type="submit" class="submit-btn" id="submitBtn">Submit for Whitelist</button>
             </form>
+        </div>
+
+        <!-- Success Message (Hidden initially) -->
+        <div class="whitelist-box success-message" id="successMessage">
+            <h3>Registration Received!</h3>
+            <p>Thank you for registering. Your submission has been added to our database.</p>
+            <p><strong>Note:</strong> We will manually verify your tasks. Only the first 300 qualified wallets will receive the WL role in Discord.</p>
         </div>
     </header>
 
@@ -652,29 +472,51 @@
         <div class="marquee-track">
             <!-- Group 1 -->
             <div class="marquee-group">
-                <img src="1.jpg" alt="TTMH Silhouette">
-                <img src="2.jpg" alt="TTMH Silhouette">
-                <img src="3.jpg" alt="TTMH Silhouette">
-                <img src="4.jpg" alt="TTMH Silhouette">
-                <img src="5.jpg" alt="TTMH Silhouette">
-                <img src="6.jpg" alt="TTMH Silhouette">
-                <img src="7.jpg" alt="TTMH Silhouette">
-                <img src="8.jpg" alt="TTMH Silhouette">
-                <img src="9.jpg" alt="TTMH Silhouette">
-                <img src="10.jpg" alt="TTMH Silhouette">
+                <img src="1.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="2.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="3.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="4.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="5.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="6.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="7.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="8.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="9.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="10.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
             </div>
-            <!-- Group 2 (Duplicate of Group 1 for seamless looping) -->
+            <!-- Group 2 -->
             <div class="marquee-group">
-                <img src="1.jpg" alt="TTMH Silhouette">
-                <img src="2.jpg" alt="TTMH Silhouette">
-                <img src="3.jpg" alt="TTMH Silhouette">
-                <img src="4.jpg" alt="TTMH Silhouette">
-                <img src="5.jpg" alt="TTMH Silhouette">
-                <img src="6.jpg" alt="TTMH Silhouette">
-                <img src="7.jpg" alt="TTMH Silhouette">
-                <img src="8.jpg" alt="TTMH Silhouette">
-                <img src="9.jpg" alt="TTMH Silhouette">
-                <img src="10.jpg" alt="TTMH Silhouette">
+                <img src="1.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="2.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="3.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="4.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="5.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="6.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="7.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="8.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="9.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="10.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Statistics -->
+    <section id="stats" class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h4>Total Supply</h4>
+                <p>10,000</p>
+            </div>
+            <div class="stat-item">
+                <h4>Whitelist Slots</h4>
+                <p>300</p>
+            </div>
+            <div class="stat-item">
+                <h4>Target Launch</h4>
+                <p>Dec 2026</p>
+            </div>
+            <div class="stat-item">
+                <h4>Mint Price</h4>
+                <p>TBA</p>
             </div>
         </div>
     </section>
@@ -692,7 +534,6 @@
         <p>A grounded approach. No massive promises, just art, tools, and real utility.</p>
         
         <div class="roadmap-grid">
-            <!-- Phase 1 -->
             <div class="phase-card">
                 <div class="phase-number">01</div>
                 <h3>The Gesture</h3>
@@ -704,7 +545,6 @@
                 </ul>
             </div>
 
-            <!-- Phase 2 -->
             <div class="phase-card">
                 <div class="phase-number">02</div>
                 <h3>The Drop</h3>
@@ -715,7 +555,6 @@
                 </ul>
             </div>
 
-            <!-- Phase 3 -->
             <div class="phase-card">
                 <div class="phase-number">03</div>
                 <h3>The Studio</h3>
@@ -727,12 +566,12 @@
                 </ul>
             </div>
 
-            <!-- Phase 4 -->
             <div class="phase-card">
                 <div class="phase-number">04</div>
                 <h3>Ecosystem & Collabs</h3>
                 <ul>
-                    <li><span class="status planned">Planned</span> Soft Staking Utility</li>
+                    <!-- Updated to Exploring as requested -->
+                    <li><span class="status explore">Explore</span> Soft Staking Utility</li>
                     <li><span class="status explore">Explore</span> Cross-project holder perks</li>
                     <li><span class="status explore">Explore</span> Brand collabs, integrations & real-world perks</li>
                 </ul>
@@ -773,12 +612,12 @@
 
         <details class="faq-item">
             <summary>Which blockchain will TTMH be on?</summary>
-            <div class="faq-content">We are currently planning for an Ethereum-based deployment (ERC-20/ERC-721 compatible), meaning you will need an ETH wallet (like MetaMask) to mint.</div>
+            <div class="faq-content">The deployment network is not yet finalized. We are currently planning for an EVM-compatible network. You will need an appropriate wallet (like MetaMask) supporting that network to mint.</div>
         </details>
 
         <details class="faq-item">
             <summary>What is the Soft Staking Utility?</summary>
-            <div class="faq-content">We are exploring a low-maintenance staking mechanism where holders can lock their NFTs or simply hold them in their wallet to receive potential future perks, without complex or heavy tokenomics.</div>
+            <div class="faq-content">We are exploring a low-maintenance mechanism where holders can potentially lock their NFTs or hold them in their wallet to receive future perks. NFT locking and simple holding are different mechanics, and we are exploring both without committing to complex or heavy tokenomics.</div>
         </details>
     </section>
 
@@ -787,10 +626,64 @@
         <div class="footer-links">
             <a href="https://x.com/talktomyhandnft" target="_blank">X (Twitter)</a>
             <a href="https://discord.gg/cnB9kTaYRQ" target="_blank">Discord</a>
-            <a href="#" target="_blank">OpenSea</a>
+            <span>OpenSea (Coming Soon)</span> <!-- Changed to span as requested -->
         </div>
         <p>&copy; 2026 Talk To My Hand (TTMH). All rights reserved.</p>
     </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Expanded Art">
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileNav');
+            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        // Lightbox Logic
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // Form Submission Logic (Prevents redirect, shows success message)
+        document.getElementById('whitelistForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stops the page from redirecting
+            
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "Processing...";
+            btn.disabled = true;
+
+            const formData = new FormData(this);
+            // Using URL-encoded format for Google Scripts compatibility
+            const urlEncodedData = new URLSearchParams(formData).toString();
+
+            fetch('https://script.google.com/macros/s/AKfycbzZKDDhGwsr34ykiYhMJCbGF_4GfxPgCUp9nYynJRPF4gkOIo5q7yPqcG_TdoT-Bnk1AQ/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: urlEncodedData
+            })
+            .then(response => {
+                // Hide form, show success message
+                document.getElementById('formContainer').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            })
+            .catch(error => {
+                alert("There was an error submitting your form. Please try again.");
+                btn.innerText = "Submit for Whitelist";
+                btn.disabled = false;
+            });
+        });
+    </script>
 
 </body>
 </html>
