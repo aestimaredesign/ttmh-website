@@ -69,16 +69,15 @@
             color: var(--accent-pink);
         }
 
-        /* Hero Section */
+        /* Hero Section (Wide Form) */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             text-align: center;
-            padding: 0 20px;
-            position: relative;
+            padding: 120px 20px 60px;
         }
 
         .hero h1 {
@@ -96,39 +95,122 @@
             margin-bottom: 40px;
         }
 
-        .button {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            border: 2px solid var(--text-color);
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background-color: transparent;
-            color: var(--text-color);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        }
-
-        /* Placeholder for the image */
-        .hero-image-container {
-            margin-top: 50px;
-            width: 100%;
-            max-width: 400px;
-            border: 2px dashed #333; 
+        /* The Wide Form Box */
+        .whitelist-box {
+            background: var(--box-bg);
+            border: 1px solid #333;
             border-radius: 20px;
-            padding: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 900px;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-top: 4px solid var(--accent-pink);
         }
 
-        .hero-image-container img {
+        .whitelist-box h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .whitelist-box p.subtitle {
+            text-align: center;
+            color: var(--gray-text);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* Grid for Inputs */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .input-group input {
+            background: #0d0d0f;
+            border: 1px solid #333;
+            color: var(--text-color);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-pink);
+        }
+
+        /* Social Requirements */
+        .social-requirements {
+            background: #0d0d0f;
+            border: 1px dashed #444;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .social-requirements p {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        .social-requirements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .social-requirements li {
+            margin-bottom: 8px;
+            color: var(--gray-text);
+            display: flex;
+            align-items: center;
+        }
+
+        .social-requirements li::before {
+            content: "✓";
+            color: var(--accent-pink);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .submit-btn {
             width: 100%;
-            height: auto;
-            display: block;
+            background-color: var(--accent-pink);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background-color: #e01baf;
+            transform: translateY(-2px);
         }
 
         /* Info Sections */
@@ -226,6 +308,8 @@
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
+            .form-grid { grid-template-columns: 1fr; } /* Stacks form on mobile */
+            .whitelist-box { padding: 20px; }
         }
     </style>
 </head>
@@ -241,17 +325,47 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Wide Form -->
     <header class="hero">
         <h1>Talk To My Hand</h1>
         <p>Stop. Wait a minute. Come closer, I have something to say.</p>
-        <a href="#" class="button">View on OpenSea (Coming Dec)</a>
         
-        <!-- THIS IS WHERE THE SILHOUETTE IMAGE GOES -->
-        <div class="hero-image-container">
-            <!-- Replace 'silhouette.png' with your actual image file name later -->
-            <img src="silhouette.png" alt="TTMH Silhouette Character">
-            <p style="color: #666; font-size: 12px; margin-top: 10px; text-align: center;">(Image Placeholder)</p>
+        <!-- WHITELIST FORM -->
+        <div class="whitelist-box">
+            <h2>Early Whitelist Registration</h2>
+            <p class="subtitle">Secure your spot for the December drop. Only 1 Wallet per X Account.</p>
+            
+            <!-- Note: This form needs a backend (like Formspree) to actually work. We will set that up next. -->
+            <form action="#" method="POST">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="x-account">X (Twitter) Username</label>
+                        <input type="text" id="x-account" name="x-account" placeholder="@yourusername" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="wallet">ETH Wallet Address</label>
+                        <input type="text" id="wallet" name="wallet" placeholder="0x..." required>
+                    </div>
+                </div>
+
+                <div class="form-grid" style="margin-bottom: 20px;">
+                    <div class="input-group">
+                        <label for="discord">Discord Username</label>
+                        <input type="text" id="discord" name="discord" placeholder="username#1234 or @username" required>
+                    </div>
+                </div>
+
+                <div class="social-requirements">
+                    <p>To qualify for the first 300 spots, you MUST complete the following:</p>
+                    <ul>
+                        <li>Follow <strong>@talktomyhandnft</strong> on X</li>
+                        <li>Join our Discord: <strong>discord.gg/cnB9kTaYRQ</strong></li>
+                        <li>Retweet the pinned post on X</li>
+                    </ul>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit for Whitelist</button>
+            </form>
         </div>
     </header>
 
@@ -308,7 +422,7 @@
                 <div class="phase-number">04</div>
                 <h3>Ecosystem & Collabs</h3>
                 <ul>
-                    <li>Soft Staking</li>
+                    <li>Soft Staking Utility</li>
                     <li>Cross-project holder perks</li>
                     <li>Post-mint activities & animations</li>
                 </ul>
