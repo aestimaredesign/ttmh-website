@@ -412,7 +412,7 @@
         <!-- WHITELIST FORM CONTAINER -->
         <div class="whitelist-box" id="formContainer">
             <h2>Early Whitelist Registration</h2>
-            <p class="subtitle">Secure your spot for the December drop. Only 1 Wallet per X Account.<br><strong>Note: Tasks are manually verified.</strong></p>
+            <p class="subtitle">Secure your spot for the December drop. Only 1 Wallet per X Account.</p>
             
             <form id="whitelistForm">
                 <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
@@ -468,7 +468,6 @@
                     <label for="confirm-tasks">I confirm that I have completed all required tasks, provided accurate information, and understand that tasks are manually verified to qualify for the first 300 slots.</label>
                 </div>
 
-                <p class="privacy-note">Privacy Notice: Your wallet address and social handles will be used for whitelist verification and project-related communication. We will not sell your data.</p>
 
                 <button type="submit" class="submit-btn" id="submitBtn">Submit for Whitelist</button>
             </form>
@@ -491,7 +490,7 @@
         
         <div class="marquee-track">
             <!-- Group 1 -->
-            <div class="marquee-group" aria-hidden="true">
+            <div class="marquee-group">
                 <img src="1.jpg" alt="Talk To My Hand artwork preview 1" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
                 <img src="2.jpg" alt="Talk To My Hand artwork preview 2" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
                 <img src="3.jpg" alt="Talk To My Hand artwork preview 3" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
@@ -503,18 +502,18 @@
                 <img src="9.jpg" alt="Talk To My Hand artwork preview 9" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
                 <img src="10.jpg" alt="Talk To My Hand artwork preview 10" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
             </div>
-            <!-- Group 2 -->
-            <div class="marquee-group">
-                <img src="1.jpg" alt="">
-                <img src="2.jpg" alt="">
-                <img src="3.jpg" alt="">
-                <img src="4.jpg" alt="">
-                <img src="5.jpg" alt="">
-                <img src="6.jpg" alt="">
-                <img src="7.jpg" alt="">
-                <img src="8.jpg" alt="">
-                <img src="9.jpg" alt="">
-                <img src="10.jpg" alt="">
+            <!-- Decorative duplicate for seamless marquee loop -->
+            <div class="marquee-group" aria-hidden="true">
+                <img src="1.jpg" alt="" tabindex="-1">
+                <img src="2.jpg" alt="" tabindex="-1">
+                <img src="3.jpg" alt="" tabindex="-1">
+                <img src="4.jpg" alt="" tabindex="-1">
+                <img src="5.jpg" alt="" tabindex="-1">
+                <img src="6.jpg" alt="" tabindex="-1">
+                <img src="7.jpg" alt="" tabindex="-1">
+                <img src="8.jpg" alt="" tabindex="-1">
+                <img src="9.jpg" alt="" tabindex="-1">
+                <img src="10.jpg" alt="" tabindex="-1">
             </div>
         </div>
     </section>
