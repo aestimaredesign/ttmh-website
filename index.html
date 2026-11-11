@@ -156,40 +156,55 @@
             border-color: var(--accent-pink);
         }
 
-        /* Social Requirements */
-        .social-requirements {
+        /* Social Task Checklist */
+        .social-tasks {
             background: #0d0d0f;
-            border: 1px dashed #444;
+            border: 1px solid #333;
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
+            margin-bottom: 25px;
         }
 
-        .social-requirements p {
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-            color: var(--text-color);
-            font-weight: bold;
+        .social-tasks h3 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: var(--accent-pink);
+            text-transform: uppercase;
         }
 
-        .social-requirements ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .social-requirements li {
-            margin-bottom: 8px;
-            color: var(--gray-text);
+        .task-item {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #222;
         }
 
-        .social-requirements li::before {
-            content: "✓";
-            color: var(--accent-pink);
-            margin-right: 10px;
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-text {
+            font-size: 0.95rem;
+            color: var(--gray-text);
+        }
+
+        .task-btn {
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid #444;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
             font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .task-btn:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
         }
 
         .submit-btn {
@@ -203,7 +218,6 @@
             border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
-            margin-top: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -308,8 +322,9 @@
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .form-grid { grid-template-columns: 1fr; } /* Stacks form on mobile */
+            .form-grid { grid-template-columns: 1fr; }
             .whitelist-box { padding: 20px; }
+            .task-item { flex-direction: column; align-items: flex-start; gap: 10px; }
         }
     </style>
 </head>
@@ -335,7 +350,6 @@
             <h2>Early Whitelist Registration</h2>
             <p class="subtitle">Secure your spot for the December drop. Only 1 Wallet per X Account.</p>
             
-            <!-- Note: This form needs a backend (like Formspree) to actually work. We will set that up next. -->
             <form action="#" method="POST">
                 <div class="form-grid">
                     <div class="input-group">
@@ -351,17 +365,28 @@
                 <div class="form-grid" style="margin-bottom: 20px;">
                     <div class="input-group">
                         <label for="discord">Discord Username</label>
-                        <input type="text" id="discord" name="discord" placeholder="username#1234 or @username" required>
+                        <input type="text" id="discord" name="discord" placeholder="username or @username" required>
                     </div>
                 </div>
 
-                <div class="social-requirements">
-                    <p>To qualify for the first 300 spots, you MUST complete the following:</p>
-                    <ul>
-                        <li>Follow <strong>@talktomyhandnft</strong> on X</li>
-                        <li>Join our Discord: <strong>discord.gg/cnB9kTaYRQ</strong></li>
-                        <li>Retweet the pinned post on X</li>
-                    </ul>
+                <!-- Task Checklist -->
+                <div class="social-tasks">
+                    <h3>Required Tasks (First 300 Wallets)</h3>
+                    
+                    <div class="task-item">
+                        <span class="task-text">1. Follow <strong>@talktomyhandnft</strong></span>
+                        <a href="https://x.com/talktomyhandnft" target="_blank" class="task-btn">Follow</a>
+                    </div>
+                    
+                    <div class="task-item">
+                        <span class="task-text">2. Like & Repost the Pinned Tweet</span>
+                        <a href="https://x.com/talktomyhandnft" target="_blank" class="task-btn">Like & Repost</a>
+                    </div>
+
+                    <div class="task-item">
+                        <span class="task-text">3. Join our Discord</span>
+                        <a href="https://discord.gg/cnB9kTaYRQ" target="_blank" class="task-btn">Join Discord</a>
+                    </div>
                 </div>
 
                 <button type="submit" class="submit-btn">Submit for Whitelist</button>
