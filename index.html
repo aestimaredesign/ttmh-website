@@ -200,6 +200,7 @@
             text-decoration: none;
             transition: all 0.3s;
             cursor: pointer;
+            white-space: nowrap;
         }
 
         .task-btn:hover {
@@ -357,20 +358,24 @@
                         <input type="text" id="x-account" name="x-account" placeholder="@yourusername" required>
                     </div>
                     <div class="input-group">
-                        <label for="wallet">ETH Wallet Address</label>
-                        <input type="text" id="wallet" name="wallet" placeholder="0x..." required>
-                    </div>
-                </div>
-
-                <div class="form-grid" style="margin-bottom: 20px;">
-                    <div class="input-group">
                         <label for="discord">Discord Username</label>
                         <input type="text" id="discord" name="discord" placeholder="username or @username" required>
                     </div>
                 </div>
 
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="wallet">ETH Wallet Address</label>
+                        <input type="text" id="wallet" name="wallet" placeholder="0x..." required>
+                    </div>
+                    <div class="input-group">
+                        <label for="reply-link">Link to your X Reply</label>
+                        <input type="url" id="reply-link" name="reply-link" placeholder="https://x.com/..." required>
+                    </div>
+                </div>
+
                 <!-- Task Checklist -->
-                <div class="social-tasks">
+                <div class="social-tasks" style="margin-top: 20px;">
                     <h3>Required Tasks (First 300 Wallets)</h3>
                     
                     <div class="task-item">
@@ -384,7 +389,11 @@
                     </div>
 
                     <div class="task-item">
-                        <span class="task-text">3. Join our Discord</span>
+                        <span class="task-text">3. Reply to the Pinned Tweet & paste link below</span>
+                    </div>
+
+                    <div class="task-item">
+                        <span class="task-text">4. Join our Discord</span>
                         <a href="https://discord.gg/cnB9kTaYRQ" target="_blank" class="task-btn">Join Discord</a>
                     </div>
                 </div>
@@ -457,7 +466,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Talk To My Hand (TTMH). All rights reserved.</p>
+        <p>&copy; 2026 Talk To My Hand (TTMH). All rights reserved.</p>
         <p>Follow us on X (Twitter) for drop updates.</p>
     </footer>
 
