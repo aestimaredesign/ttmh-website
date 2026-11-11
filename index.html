@@ -13,7 +13,7 @@
     <meta property="og:description" content="Stop. Wait a minute. Come closer, I have something to say.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ttmh.wtf/">
-    <!-- REPLACE WITH YOUR ACTUAL IMAGE URL LATER -->
+    <!-- Replace with a dedicated 1200x630 social preview image when available. -->
     <meta property="og:image" content="https://ttmh.wtf/1.jpg"> 
     
     <meta name="twitter:card" content="summary_large_image">
@@ -271,7 +271,10 @@
         }
         /* Accessibility: Pause animation if user prefers reduced motion */
         @media (prefers-reduced-motion: reduce) {
-            .marquee-track { animation: none; overflow-x: auto; }
+            .marquee-section { overflow-x: auto; }
+            .marquee-track { animation: none; transform: none; }
+            .marquee-group[aria-hidden="true"] { display: none; }
+            * { scroll-behavior: auto !important; }
         }
         .marquee-track:hover { animation-play-state: paused; }
 
@@ -346,6 +349,44 @@
         }
         .lightbox img { max-width: 90%; max-height: 90%; border-radius: 10px; border: 2px solid var(--accent-cyan); }
 
+        /* Accessibility and form feedback */
+        .mobile-menu-btn:focus-visible,
+        .task-btn:focus-visible,
+        .submit-btn:focus-visible,
+        .marquee-group img:focus-visible,
+        .lightbox-close:focus-visible {
+            outline: 2px solid var(--accent-cyan);
+            outline-offset: 4px;
+        }
+        .form-status {
+            display: none;
+            margin: 0 0 16px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .form-status.error {
+            display: block;
+            color: #ffd7d7;
+            background: rgba(180, 30, 30, 0.18);
+            border: 1px solid rgba(255, 90, 90, 0.55);
+        }
+        .form-status.info {
+            display: block;
+            color: var(--text-color);
+            background: rgba(0, 180, 216, 0.12);
+            border: 1px solid rgba(0, 180, 216, 0.45);
+        }
+        .submit-btn:disabled { opacity: 0.65; cursor: wait; }
+        .mobile-nav[hidden] { display: none !important; }
+        .lightbox { padding: 60px 20px 20px; }
+        .lightbox img { cursor: default; object-fit: contain; }
+        .lightbox-close {
+            position: absolute; top: 20px; right: 24px; z-index: 2;
+            border: 1px solid #666; border-radius: 50%; width: 42px; height: 42px;
+            background: #151518; color: white; font-size: 26px; cursor: pointer;
+        }
+
         /* Mobile Adjustments */
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -365,8 +406,8 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="#" class="logo">TALK TO MY <span>HAND</span></a>
-        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        <a href="/" class="logo" aria-label="Talk To My Hand home">TALK TO MY <span>HAND</span></a>
+        <button class="mobile-menu-btn" id="mobileMenuButton" type="button" aria-label="Open navigation menu" aria-controls="mobileNav" aria-expanded="false">☰</button>
         <div class="nav-links">
             <a href="#artwork">Artwork</a>
             <a href="#stats">Stats</a>
@@ -379,13 +420,13 @@
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-nav" id="mobileNav">
-        <a href="#artwork" onclick="toggleMenu()">Artwork</a>
-        <a href="#stats" onclick="toggleMenu()">Stats</a>
-        <a href="#about" onclick="toggleMenu()">Origin</a>
-        <a href="#roadmap" onclick="toggleMenu()">Roadmap</a>
-        <a href="#studio" onclick="toggleMenu()">Studio</a>
-        <a href="#faq" onclick="toggleMenu()">FAQ</a>
+    <div class="mobile-nav" id="mobileNav" hidden>
+        <a href="#artwork">Artwork</a>
+        <a href="#stats">Stats</a>
+        <a href="#about">Origin</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#studio">Studio</a>
+        <a href="#faq">FAQ</a>
         <a style="color: var(--gray-text);">Mint (Soon)</a>
     </div>
 
@@ -401,6 +442,12 @@
             
             <!-- Note the ID on the form for Javascript -->
             <form id="whitelistForm">
+                <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+                <!-- Honeypot field: legitimate visitors should leave this empty. -->
+                <div class="honeypot" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+                    <label for="website">Leave this field empty</label>
+                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="form-grid">
                     <div class="input-group">
                         <label for="x-account">X (Twitter) Username</label>
@@ -424,12 +471,12 @@
                     
                     <div class="task-item">
                         <span class="task-text">1. Follow <strong>@talktomyhandnft</strong></span>
-                        <a href="https://x.com/talktomyhandnft" target="_blank" class="task-btn">Follow</a>
+                        <a href="https://x.com/talktomyhandnft" target="_blank" rel="noopener noreferrer" class="task-btn">Follow</a>
                     </div>
                     
                     <div class="task-item">
                         <span class="task-text">2. Like, Repost, and Reply to the Pinned Tweet</span>
-                        <a href="https://x.com/talktomyhandnft" target="_blank" class="task-btn">Go to Tweet</a>
+                        <a href="https://x.com/talktomyhandnft" target="_blank" rel="noopener noreferrer" class="task-btn">Go to Tweet</a>
                     </div>
 
                     <div class="task-item" style="flex-wrap: wrap;">
@@ -439,16 +486,16 @@
 
                     <div class="task-item">
                         <span class="task-text">4. Join our Discord</span>
-                        <a href="https://discord.gg/cnB9kTaYRQ" target="_blank" class="task-btn">Join Discord</a>
+                        <a href="https://discord.gg/cnB9kTaYRQ" target="_blank" rel="noopener noreferrer" class="task-btn">Join Discord</a>
                     </div>
                 </div>
 
                 <div class="checkbox-group">
-                    <input type="checkbox" id="confirm-tasks" required>
+                    <input type="checkbox" id="confirm-tasks" name="confirm_tasks" value="yes" required>
                     <label for="confirm-tasks">I confirm that I have completed all required tasks, provided accurate information, and understand that tasks are manually verified to qualify for the first 300 slots.</label>
                 </div>
 
-                <p class="privacy-note">Privacy Notice: Your wallet address and social handles will be used solely for whitelist verification and project distribution. We will never sell your data.</p>
+                <p class="privacy-note">Privacy Notice: Your wallet address and social handles will be used for whitelist verification and project-related communication. We will not sell your data.</p>
 
                 <button type="submit" class="submit-btn" id="submitBtn">Submit for Whitelist</button>
             </form>
@@ -457,8 +504,8 @@
         <!-- Success Message (Hidden initially) -->
         <div class="whitelist-box success-message" id="successMessage">
             <h3>Registration Received!</h3>
-            <p>Thank you for registering. Your submission has been added to our database.</p>
-            <p><strong>Note:</strong> We will manually verify your tasks. Only the first 300 qualified wallets will receive the WL role in Discord.</p>
+            <p>Thank you for registering. Your registration has been received. It is currently pending manual review.</p>
+            <p><strong>Note:</strong> This confirmation does not guarantee a whitelist spot. We will manually verify your tasks, and only the first 300 qualified wallets will be accepted.</p>
         </div>
     </header>
 
@@ -471,30 +518,30 @@
         
         <div class="marquee-track">
             <!-- Group 1 -->
-            <div class="marquee-group">
-                <img src="1.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="2.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="3.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="4.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="5.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="6.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="7.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="8.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="9.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="10.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+            <div class="marquee-group" aria-hidden="true">
+                <img src="1.jpg" alt="Talk To My Hand artwork preview 1" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
+                <img src="2.jpg" alt="Talk To My Hand artwork preview 2" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
+                <img src="3.jpg" alt="Talk To My Hand artwork preview 3" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
+                <img src="4.jpg" alt="Talk To My Hand artwork preview 4" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
+                <img src="5.jpg" alt="Talk To My Hand artwork preview 5" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
+                <img src="6.jpg" alt="Talk To My Hand artwork preview 6" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
+                <img src="7.jpg" alt="Talk To My Hand artwork preview 7" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
+                <img src="8.jpg" alt="Talk To My Hand artwork preview 8" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
+                <img src="9.jpg" alt="Talk To My Hand artwork preview 9" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
+                <img src="10.jpg" alt="Talk To My Hand artwork preview 10" role="button" tabindex="0" onclick="openLightbox(this.currentSrc || this.src)" onkeydown="handleArtworkKeydown(event, this)">
             </div>
             <!-- Group 2 -->
             <div class="marquee-group">
-                <img src="1.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="2.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="3.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="4.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="5.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="6.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="7.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="8.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="9.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
-                <img src="10.jpg" alt="TTMH Art" onclick="openLightbox(this.src)">
+                <img src="1.jpg" alt="">
+                <img src="2.jpg" alt="">
+                <img src="3.jpg" alt="">
+                <img src="4.jpg" alt="">
+                <img src="5.jpg" alt="">
+                <img src="6.jpg" alt="">
+                <img src="7.jpg" alt="">
+                <img src="8.jpg" alt="">
+                <img src="9.jpg" alt="">
+                <img src="10.jpg" alt="">
             </div>
         </div>
     </section>
@@ -624,64 +671,192 @@
     <!-- Footer -->
     <footer>
         <div class="footer-links">
-            <a href="https://x.com/talktomyhandnft" target="_blank">X (Twitter)</a>
-            <a href="https://discord.gg/cnB9kTaYRQ" target="_blank">Discord</a>
+            <a href="https://x.com/talktomyhandnft" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+            <a href="https://discord.gg/cnB9kTaYRQ" target="_blank" rel="noopener noreferrer">Discord</a>
             <span>OpenSea (Coming Soon)</span> <!-- Changed to span as requested -->
         </div>
         <p>&copy; 2026 Talk To My Hand (TTMH). All rights reserved.</p>
     </footer>
 
     <!-- Lightbox Modal -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <img id="lightbox-img" src="" alt="Expanded Art">
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Artwork preview" aria-hidden="true" onclick="handleLightboxBackdrop(event)">
+        <button class="lightbox-close" type="button" aria-label="Close artwork preview" onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" alt="Expanded Talk To My Hand artwork">
     </div>
 
     <!-- JAVASCRIPT -->
     <script>
-        // Mobile Menu Toggle
+        // Keep this URL synchronized with the deployed Google Apps Script Web App.
+        const WHITELIST_API_URL = 'https://script.google.com/macros/s/AKfycby_7wgfbSnTSdcM8Zz5OJrpSs-N3kaiosZqAXRGhH8mvM0D1YwFegm2WEr5wcUePnRoOQ/exec';
+
+        // Mobile navigation: accessible toggle, Escape key, and outside-click close.
+        const mobileMenu = document.getElementById('mobileNav');
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+
+        function setMenuOpen(isOpen) {
+            mobileMenu.hidden = !isOpen;
+            mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+            mobileMenuButton.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+            mobileMenuButton.textContent = isOpen ? '\u2715' : '\u2630';
+        }
+
         function toggleMenu() {
-            const menu = document.getElementById('mobileNav');
-            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+            setMenuOpen(mobileMenu.hidden);
         }
 
-        // Lightbox Logic
-        function openLightbox(src) {
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').style.display = 'flex';
+        mobileMenuButton.addEventListener('click', toggleMenu);
+        mobileMenu.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', () => setMenuOpen(false));
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+                setMenuOpen(false);
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('click', event => {
+            if (!mobileMenu.hidden && !mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                setMenuOpen(false);
+            }
+        });
+
+        // Artwork lightbox.
+        let lastFocusedArtwork = null;
+
+        function openLightbox(src, trigger) {
+            const lightbox = document.getElementById('lightbox');
+            const image = document.getElementById('lightbox-img');
+            lastFocusedArtwork = trigger || document.activeElement;
+            image.src = src;
+            lightbox.style.display = 'flex';
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            lightbox.querySelector('.lightbox-close').focus();
         }
+
         function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.style.display === 'none' || !lightbox.style.display) return;
+            lightbox.style.display = 'none';
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.getElementById('lightbox-img').src = '';
+            document.body.style.overflow = '';
+            if (lastFocusedArtwork && typeof lastFocusedArtwork.focus === 'function') {
+                lastFocusedArtwork.focus();
+            }
         }
 
-        // Form Submission Logic (Prevents redirect, shows success message)
-        document.getElementById('whitelistForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stops the page from redirecting
-            
-            const btn = document.getElementById('submitBtn');
-            btn.innerText = "Processing...";
-            btn.disabled = true;
+        function handleLightboxBackdrop(event) {
+            if (event.target.id === 'lightbox') closeLightbox();
+        }
 
-            const formData = new FormData(this);
-            // Using URL-encoded format for Google Scripts compatibility
-            const urlEncodedData = new URLSearchParams(formData).toString();
+        function handleArtworkKeydown(event, image) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openLightbox(image.currentSrc || image.src, image);
+            }
+        }
 
-            fetch('https://script.google.com/macros/s/AKfycbzZKDDhGwsr34ykiYhMJCbGF_4GfxPgCUp9nYynJRPF4gkOIo5q7yPqcG_TdoT-Bnk1AQ/exec', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: urlEncodedData
-            })
-            .then(response => {
-                // Hide form, show success message
+        // Whitelist form submission.
+        const whitelistForm = document.getElementById('whitelistForm');
+        const submitButton = document.getElementById('submitBtn');
+        const formStatus = document.getElementById('formStatus');
+        const originalButtonText = submitButton.textContent;
+
+        function showFormStatus(message, type) {
+            formStatus.textContent = message;
+            formStatus.className = 'form-status ' + type;
+        }
+
+        function clearFormStatus() {
+            formStatus.textContent = '';
+            formStatus.className = 'form-status';
+        }
+
+        whitelistForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            clearFormStatus();
+
+            if (!whitelistForm.reportValidity()) return;
+
+            const formData = new FormData(whitelistForm);
+            const xAccount = String(formData.get('x_account') || '').trim().replace(/^@/, '');
+            const wallet = String(formData.get('wallet') || '').trim();
+            const replyLink = String(formData.get('reply_link') || '').trim();
+
+            if (!/^[A-Za-z0-9_]{1,15}$/.test(xAccount)) {
+                showFormStatus('Please enter a valid X username (maximum 15 letters, numbers, or underscores).', 'error');
+                return;
+            }
+            if (!/^0x[a-fA-F0-9]{40}$/.test(wallet)) {
+                showFormStatus('Please enter a valid 42-character EVM wallet address.', 'error');
+                return;
+            }
+            try {
+                const replyUrl = new URL(replyLink);
+                if (replyUrl.protocol !== 'https:' || !/(^|\.)x\.com$|(^|\.)twitter\.com$/i.test(replyUrl.hostname)) {
+                    throw new Error('invalid');
+                }
+            } catch (_) {
+                showFormStatus('Please provide a valid HTTPS link to your X/Twitter reply.', 'error');
+                return;
+            }
+            if (formData.get('confirm_tasks') !== 'yes') {
+                showFormStatus('Please confirm that you have completed the required tasks.', 'error');
+                return;
+            }
+
+            formData.set('x_account', xAccount);
+            submitButton.disabled = true;
+            submitButton.textContent = 'Processing...';
+            submitButton.setAttribute('aria-busy', 'true');
+            showFormStatus('Submitting your registration. Please do not close this page.', 'info');
+
+            try {
+                const response = await fetch(WHITELIST_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+                    body: new URLSearchParams(formData).toString(),
+                    redirect: 'follow'
+                });
+
+                if (!response.ok) {
+                    throw new Error('The registration service returned an HTTP error.');
+                }
+
+                const result = await response.json();
+                if (!result || result.success !== true) {
+                    const messages = {
+                        DUPLICATE_WALLET: 'This wallet address has already been registered.',
+                        DUPLICATE_X_ACCOUNT: 'This X account has already been registered.',
+                        INVALID_WALLET: 'Please enter a valid EVM wallet address.',
+                        INVALID_X_USERNAME: 'Please enter a valid X username.',
+                        INVALID_REPLY_LINK: 'Please provide a valid X/Twitter reply link.',
+                        CONFIRMATION_REQUIRED: 'Please confirm that you have completed the required tasks.',
+                        MISSING_FIELDS: 'Please complete all required fields.',
+                        SPAM_DETECTED: 'The submission could not be accepted.',
+                        SERVER_ERROR: 'The registration service could not process your submission. Please try again later.'
+                    };
+                    throw new Error(messages[result && result.code] || (result && result.message) || 'Your registration could not be accepted.');
+                }
+
                 document.getElementById('formContainer').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
-            })
-            .catch(error => {
-                alert("There was an error submitting your form. Please try again.");
-                btn.innerText = "Submit for Whitelist";
-                btn.disabled = false;
-            });
+                document.getElementById('successMessage').setAttribute('tabindex', '-1');
+                document.getElementById('successMessage').focus();
+            } catch (error) {
+                console.error('TTMH whitelist submission error:', error);
+                const message = error instanceof TypeError
+                    ? 'We could not confirm your submission because the registration service may be blocking the browser connection. Your registration status is unknown. Please contact the TTMH team before submitting again.'
+                    : error.message;
+                showFormStatus(message, 'error');
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            } finally {
+                submitButton.removeAttribute('aria-busy');
+            }
         });
     </script>
 
