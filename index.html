@@ -130,15 +130,13 @@
         /* Whitelist Box */
         .whitelist-box {
             background: var(--box-bg);
-            border: 1px solid #333;
+            border: 1px solid #333; /* Simple grey border, no gradient */
             border-radius: 20px;
             padding: 40px;
             width: 100%;
             max-width: 900px;
             text-align: left;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-top: 4px solid;
-            border-image: linear-gradient(to right, var(--accent-cyan), var(--accent-deep-blue)) 1;
         }
 
         .whitelist-box h2 {
@@ -344,6 +342,13 @@
             margin-bottom: 10px;
         }
 
+        .marquee-header p {
+            font-style: italic;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+        }
+
         .marquee-track {
             display: flex;
             width: max-content;
@@ -357,7 +362,7 @@
         .marquee-group {
             display: flex;
             gap: 20px;
-            padding-right: 20px; /* Space between loop resets */
+            padding-right: 20px;
         }
 
         .marquee-group img {
@@ -581,11 +586,12 @@
             <h2>Early Whitelist Registration</h2>
             <p class="subtitle">Secure your spot for the December drop. Only 1 Wallet per X Account.<br><strong>Note: Tasks are manually verified.</strong></p>
             
-            <form action="#" method="POST">
+            <!-- GOOGLE SHEET CONNECTION -->
+            <form action="https://script.google.com/macros/s/AKfycbzZKDDhGwsr34ykiYhMJCbGF_4GfxPgCUp9nYynJRPF4gkOIo5q7yPqcG_TdoT-Bnk1AQ/exec" method="POST">
                 <div class="form-grid">
                     <div class="input-group">
                         <label for="x-account">X (Twitter) Username</label>
-                        <input type="text" id="x-account" name="x-account" placeholder="@yourusername" pattern="^@?[a-zA-Z0-9_]{1,15}$" title="Please enter a valid X username" required>
+                        <input type="text" id="x-account" name="x_account" placeholder="@yourusername" pattern="^@?[a-zA-Z0-9_]{1,15}$" title="Please enter a valid X username" required>
                     </div>
                     <div class="input-group">
                         <label for="discord">Discord Username</label>
@@ -615,7 +621,7 @@
 
                     <div class="task-item" style="flex-wrap: wrap;">
                         <span class="task-text">3. Paste the link to your reply below</span>
-                        <input type="url" id="reply-link" name="reply-link" placeholder="https://x.com/..." class="task-input-inline" required>
+                        <input type="url" id="reply-link" name="reply_link" placeholder="https://x.com/..." class="task-input-inline" required>
                     </div>
 
                     <div class="task-item">
@@ -640,35 +646,35 @@
     <section id="artwork" class="marquee-section">
         <div class="marquee-header">
             <h2>Artwork Preview</h2>
-            <p>A glimpse into the different moods, expressions, and accessories.</p>
+            <p>Shadows of the unspoken. A silent chorus of gestures waiting for their moment.</p>
         </div>
         
         <div class="marquee-track">
             <!-- Group 1 -->
             <div class="marquee-group">
-                <img src="1.jpg" alt="TTMH Art 1">
-                <img src="2.jpg" alt="TTMH Art 2">
-                <img src="3.jpg" alt="TTMH Art 3">
-                <img src="4.jpg" alt="TTMH Art 4">
-                <img src="5.jpg" alt="TTMH Art 5">
-                <img src="6.jpg" alt="TTMH Art 6">
-                <img src="7.jpg" alt="TTMH Art 7">
-                <img src="8.jpg" alt="TTMH Art 8">
-                <img src="9.jpg" alt="TTMH Art 9">
-                <img src="10.jpg" alt="TTMH Art 10">
+                <img src="1.jpg" alt="TTMH Silhouette">
+                <img src="2.jpg" alt="TTMH Silhouette">
+                <img src="3.jpg" alt="TTMH Silhouette">
+                <img src="4.jpg" alt="TTMH Silhouette">
+                <img src="5.jpg" alt="TTMH Silhouette">
+                <img src="6.jpg" alt="TTMH Silhouette">
+                <img src="7.jpg" alt="TTMH Silhouette">
+                <img src="8.jpg" alt="TTMH Silhouette">
+                <img src="9.jpg" alt="TTMH Silhouette">
+                <img src="10.jpg" alt="TTMH Silhouette">
             </div>
             <!-- Group 2 (Duplicate of Group 1 for seamless looping) -->
             <div class="marquee-group">
-                <img src="1.jpg" alt="TTMH Art 1">
-                <img src="2.jpg" alt="TTMH Art 2">
-                <img src="3.jpg" alt="TTMH Art 3">
-                <img src="4.jpg" alt="TTMH Art 4">
-                <img src="5.jpg" alt="TTMH Art 5">
-                <img src="6.jpg" alt="TTMH Art 6">
-                <img src="7.jpg" alt="TTMH Art 7">
-                <img src="8.jpg" alt="TTMH Art 8">
-                <img src="9.jpg" alt="TTMH Art 9">
-                <img src="10.jpg" alt="TTMH Art 10">
+                <img src="1.jpg" alt="TTMH Silhouette">
+                <img src="2.jpg" alt="TTMH Silhouette">
+                <img src="3.jpg" alt="TTMH Silhouette">
+                <img src="4.jpg" alt="TTMH Silhouette">
+                <img src="5.jpg" alt="TTMH Silhouette">
+                <img src="6.jpg" alt="TTMH Silhouette">
+                <img src="7.jpg" alt="TTMH Silhouette">
+                <img src="8.jpg" alt="TTMH Silhouette">
+                <img src="9.jpg" alt="TTMH Silhouette">
+                <img src="10.jpg" alt="TTMH Silhouette">
             </div>
         </div>
     </section>
@@ -768,11 +774,6 @@
         <details class="faq-item">
             <summary>Which blockchain will TTMH be on?</summary>
             <div class="faq-content">We are currently planning for an Ethereum-based deployment (ERC-20/ERC-721 compatible), meaning you will need an ETH wallet (like MetaMask) to mint.</div>
-        </details>
-
-        <details class="faq-item">
-            <summary>How will the whitelist work?</summary>
-            <div class="faq-content">The first 300 slots are for qualified registrants who complete the social tasks. After that, we will have a public mint phase. All tasks are manually verified to prevent botting.</div>
         </details>
 
         <details class="faq-item">
