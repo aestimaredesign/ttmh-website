@@ -17,6 +17,9 @@
     <meta property="og:title" content="Talk To My Hand | TTMH">
     <meta property="og:description" content="Stop. Wait a minute. Come closer, I have something to say.">
     <meta property="og:image" content="https://ttmh.wtf/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Talk To My Hand — TTMH collection banner">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -473,7 +476,7 @@
     <!-- JAVASCRIPT -->
     <script>
         // Keep this URL synchronized with the deployed Google Apps Script Web App.
-        const WHITELIST_API_URL = 'https://script.google.com/macros/s/AKfycby-O8fjGTwTJrgKMOZ7OMO4z2DrOCUfepGQM3mI3l8C26j_0kR0lEfMTsN-Z6B0dSESEw/exec';
+        const WHITELIST_API_URL = 'https://script.google.com/macros/s/AKfycbyXGyiVZgHBftKhC41vdaP0eFJEQ2KJUZCmMwlFNIQRsU4TeZT1E8QfUaPH5BvJx58s8g/exec';
 
         // Music Player Logic
         const music = document.getElementById('bg-music');
@@ -661,6 +664,7 @@
                     const messages = {
                         DUPLICATE_WALLET: 'This wallet address has already been registered.',
                         DUPLICATE_X_ACCOUNT: 'This X account has already been registered.',
+                        WHITELIST_FULL: 'The first 300 whitelist registrations are full. Thank you for your interest!',
                         INVALID_WALLET: 'Please enter a valid EVM wallet address.',
                         INVALID_X_USERNAME: 'Please enter a valid X username.',
                         INVALID_REPLY_LINK: 'Please provide a valid X/Twitter reply link.',
