@@ -181,6 +181,31 @@
         /* Hide the default audio element */
         #bg-music { display: none; }
 
+        /* --- FIXED FORM STATUS ERROR BOX --- */
+        .form-status {
+            display: none;
+            margin: 0 auto 20px auto;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            text-align: center; /* Centers the text */
+            width: 100%;
+        }
+        .form-status.error {
+            display: block;
+            color: #ffd7d7;
+            background: rgba(180, 30, 30, 0.18);
+            border: 1px solid rgba(255, 90, 90, 0.55);
+        }
+        .form-status.info {
+            display: block;
+            color: var(--text-color);
+            background: rgba(0, 180, 216, 0.12);
+            border: 1px solid rgba(0, 180, 216, 0.45);
+        }
+        .submit-btn:disabled { opacity: 0.65; cursor: wait; }
+        .mobile-nav[hidden] { display: none !important; }
+
         /* Mobile */
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -197,14 +222,12 @@
 </head>
 <body>
 
-    <!-- MUSIC PLAYER (Assuming you named the file music.mp3) -->
+    <!-- MUSIC PLAYER -->
     <audio id="bg-music" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
     <button class="music-btn" id="musicBtn" aria-label="Toggle Background Music" title="Toggle Background Music">
-        <!-- Play Icon -->
         <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        <!-- Pause Icon (Hidden by default) -->
         <svg id="icon-pause" style="display:none;" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
     </button>
 
@@ -452,14 +475,13 @@
         // Keep this URL synchronized with the deployed Google Apps Script Web App.
         const WHITELIST_API_URL = 'https://script.google.com/macros/s/AKfycby-O8fjGTwTJrgKMOZ7OMO4z2DrOCUfepGQM3mI3l8C26j_0kR0lEfMTsN-Z6B0dSESEw/exec';
 
-        // --- MUSIC PLAYER LOGIC ---
+        // Music Player Logic
         const music = document.getElementById('bg-music');
         const musicBtn = document.getElementById('musicBtn');
         const iconPlay = document.getElementById('icon-play');
         const iconPause = document.getElementById('icon-pause');
-        let isManuallyPaused = false; // Tracks if the user clicked the pause button
+        let isManuallyPaused = false;
 
-        // Update the icons based on play state
         function updateMusicIcons() {
             if (music.paused) {
                 iconPlay.style.display = 'block';
@@ -470,36 +492,28 @@
             }
         }
 
-        // Try to play automatically when the page loads
         window.addEventListener('load', () => {
-            music.volume = 0.5; // Set volume to 50% so it's not too loud
+            music.volume = 0.5;
             let playPromise = music.play();
-            
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
-                    // Autoplay started successfully!
                     updateMusicIcons();
                 }).catch(error => {
-                    // Autoplay was blocked by the browser. 
-                    // We will wait for the first click.
                     console.log("Autoplay blocked. Waiting for user interaction.");
                 });
             }
         });
 
-        // If autoplay is blocked, play on the very first click anywhere on the page
         document.addEventListener('click', function(e) {
-            // Don't trigger if they clicked the music button itself, or if they intentionally paused it
             if (music.paused && !isManuallyPaused && e.target !== musicBtn && !musicBtn.contains(e.target)) {
                 music.play().then(() => {
                     updateMusicIcons();
                 }).catch(err => console.log(err));
             }
-        }, { once: true }); // The { once: true } makes sure this only runs the first time they click
+        }, { once: true });
 
-        // Manual Toggle Button Logic
         musicBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Stop the click from triggering the 'first click' listener above
+            e.stopPropagation();
             if (music.paused) {
                 music.play();
                 isManuallyPaused = false;
@@ -509,7 +523,6 @@
             }
             updateMusicIcons();
         });
-        // --------------------------
 
         // Mobile navigation
         const mobileMenu = document.getElementById('mobileNav');
